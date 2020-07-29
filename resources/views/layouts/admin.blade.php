@@ -24,23 +24,50 @@
   </head>
   <body>
      <div id"app">
-      <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
-        <div class="container">
-          <a class="navbar-brand" href="{{ url('/') }}>
+       <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
+         <div class="container">
+           <a class="navbar-brand" href="{{ url('/') }}>
             {{ config('app.name', 'Laravel') }}
-          </a>
-          <buttom class="navbar-toggler" type="button" date-toggle="collapse" date-target="#navbarSupportedContent" aria-controls-"navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-           <span class="navbar-toggler-icon"></span>
-           </button>
+             </a>
+             <buttom class="navbar-toggler" type="button" date-toggle="collapse" date-target="#navbarSupportedContent" aria-controls-"navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+             <span class="navbar-toggler-icon"></span>
+             </button>
            
-           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side of Navbar -->
-            <ul class="navbar-nav mr-auto">
+             <div class="collapse navbar-collapse" id="navbarSupportedContent">
+             <!-- Left Side of Navbar -->
+             <ul class="navbar-nav mr-auto">
             
             </ul>
             
             <!-- Right Side of Navbar -->
             <ul class="navbar-nav ml-auto">
+            
+            <!-- Authenticaiton Links -->
+             {{-- ログインしていたら、ユーザー名とログイン画面へのリンクを表示 --}}
+             @guest
+               <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+               </li>
+             
+               {{-- ログインしていたらユーザー名とログアウトボタンを表示 --}}
+               @else
+                 <li class="nav-item dropdown">
+                   <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" date-toggle="dropdown" aria-haspopup="true aria-expanded="false" v-pre>
+                     {{ Auth::user()->name }} <span class="caret"><</span>
+                       </a>
+                 
+                       <div class="dropdown-menu" aria-;labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                          onclick="event.preventDefault();
+                                    document.geElementById('logout-form').submin();">
+                         {{ __('Logout') }}
+                       </a>
+                    
+                        <form id="logout-form" action="{{ route('logout') }}"method="POST" style="display: none;">
+                      @csrf
+                         </form>
+                       </div>
+                 </li>
+                 @endguest
             </ul>
           </div>
         </div>
